@@ -11,6 +11,10 @@ services:
       - "8080:8080"
     environment:
       STORAGE_URI: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      ENABLE_S3_BACKEND: ${ENABLE_S3_BACKEND}
+      EXCALIDRAW_S3_BUCKET_NAME: ${EXCALIDRAW_S3_BUCKET_NAME}
+      EXCALIDRAW_S3_ACCESS_KEY_ID: ${EXCALIDRAW_S3_ACCESS_KEY_ID}
+      EXCALIDRAW_S3_SECRET_ACCESS_KEY: ${EXCALIDRAW_S3_SECRET_ACCESS_KEY}
     volumes:
       - .:/home/node/app
   postgres:
@@ -26,7 +30,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
     volumes:
       - postgres_data:/var/lib/postgresql/data/pgdata
-    # ports:
-    #   - "5432:5432"
+    ports:
+      - "5432:5432"
 volumes:
   postgres_data:
