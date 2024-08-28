@@ -4,7 +4,7 @@ services:
   excalidraw-storage-backend:
     build: 
       context: .
-      target: development
+      target: production
     tty: true
     stdin_open: true
     ports:
@@ -17,20 +17,6 @@ services:
       EXCALIDRAW_S3_SECRET_ACCESS_KEY: ${EXCALIDRAW_S3_SECRET_ACCESS_KEY}
     volumes:
       - .:/home/node/app
-  postgres:
-    image: postgres:15-alpine
-    # Pass config parameters to the postgres server.
-    # Find more information below when you need to generate the ssl-relevant file your self
-    # command: -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
-    environment:
-      PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_DB: ${POSTGRES_DB:-excalidraw-dev}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
-      POSTGRES_USER: ${POSTGRES_USER}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/pgdata
-    ports:
-      - "5432:5432"
+
 volumes:
   postgres_data:
